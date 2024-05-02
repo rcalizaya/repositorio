@@ -129,23 +129,24 @@ ALTER SEQUENCE public.moon_moon_id_seq OWNED BY public.moon.moon_id;
 --
 
 CREATE TABLE public.more_info (
-    info_id integer NOT NULL,
     texto text,
     col3 numeric,
     col4 integer NOT NULL,
     col5 integer NOT NULL,
     col6 boolean,
-    col7 boolean
+    col7 boolean,
+    name character varying(30),
+    more_info_id integer NOT NULL
 );
 
 
 ALTER TABLE public.more_info OWNER TO freecodecamp;
 
 --
--- Name: more_info_info_id_seq; Type: SEQUENCE; Schema: public; Owner: freecodecamp
+-- Name: more_info_more_info_id_seq; Type: SEQUENCE; Schema: public; Owner: freecodecamp
 --
 
-CREATE SEQUENCE public.more_info_info_id_seq
+CREATE SEQUENCE public.more_info_more_info_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -154,13 +155,13 @@ CREATE SEQUENCE public.more_info_info_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.more_info_info_id_seq OWNER TO freecodecamp;
+ALTER TABLE public.more_info_more_info_id_seq OWNER TO freecodecamp;
 
 --
--- Name: more_info_info_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: freecodecamp
+-- Name: more_info_more_info_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: freecodecamp
 --
 
-ALTER SEQUENCE public.more_info_info_id_seq OWNED BY public.more_info.info_id;
+ALTER SEQUENCE public.more_info_more_info_id_seq OWNED BY public.more_info.more_info_id;
 
 
 --
@@ -260,10 +261,10 @@ ALTER TABLE ONLY public.moon ALTER COLUMN moon_id SET DEFAULT nextval('public.mo
 
 
 --
--- Name: more_info info_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
+-- Name: more_info more_info_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
 --
 
-ALTER TABLE ONLY public.more_info ALTER COLUMN info_id SET DEFAULT nextval('public.more_info_info_id_seq'::regclass);
+ALTER TABLE ONLY public.more_info ALTER COLUMN more_info_id SET DEFAULT nextval('public.more_info_more_info_id_seq'::regclass);
 
 
 --
@@ -322,12 +323,11 @@ INSERT INTO public.moon VALUES (20, 'm20', 20, 40, 60, 'txt m20', true, false, 8
 -- Data for Name: more_info; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
-INSERT INTO public.more_info VALUES (1, 'txt1', 1, 2, 3, true, false);
-INSERT INTO public.more_info VALUES (2, 'txt2', 1, 2, 3, true, false);
-INSERT INTO public.more_info VALUES (3, 'txt3', 1, 2, 3, true, false);
-INSERT INTO public.more_info VALUES (4, 'txt4', 1, 2, 3, true, false);
-INSERT INTO public.more_info VALUES (5, 'txt5', 1, 2, 3, true, false);
-INSERT INTO public.more_info VALUES (6, 'txt6', 1, 2, 3, true, false);
+INSERT INTO public.more_info VALUES ('txt1', 1, 2, 3, true, false, 'name', 7);
+INSERT INTO public.more_info VALUES ('txt2', 1, 2, 3, true, false, 'name2', 8);
+INSERT INTO public.more_info VALUES ('txt3', 1, 2, 3, true, false, 'name4', 9);
+INSERT INTO public.more_info VALUES ('txt5', 1, 2, 3, true, false, 'name5', 10);
+INSERT INTO public.more_info VALUES ('txt6', 1, 2, 3, true, false, 'name6', 11);
 
 
 --
@@ -375,10 +375,10 @@ SELECT pg_catalog.setval('public.moon_moon_id_seq', 20, true);
 
 
 --
--- Name: more_info_info_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
+-- Name: more_info_more_info_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.more_info_info_id_seq', 6, true);
+SELECT pg_catalog.setval('public.more_info_more_info_id_seq', 11, true);
 
 
 --
@@ -428,11 +428,19 @@ ALTER TABLE ONLY public.moon
 
 
 --
+-- Name: more_info more_info_name_key; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.more_info
+    ADD CONSTRAINT more_info_name_key UNIQUE (name);
+
+
+--
 -- Name: more_info more_info_pkey; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
 --
 
 ALTER TABLE ONLY public.more_info
-    ADD CONSTRAINT more_info_pkey PRIMARY KEY (info_id);
+    ADD CONSTRAINT more_info_pkey PRIMARY KEY (more_info_id);
 
 
 --
